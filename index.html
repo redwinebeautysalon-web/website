@@ -701,46 +701,93 @@ body {
 
 
 <div class="gallery-container">
+    <h2 style="text-align:center; color:var(--gold); font-family:'Playfair Display'; padding-top: 50px;">Our Masterpieces</h2>
+    
     <div class="slider-wrap">
         <div class="track" id="photoTrack">
-            <div class="slide"><img src="1.jpg"></div>
-            <div class="slide"><img src="2.jpg"></div>
-            <div class="slide"><img src="3.jpeg"></div>
-            <div class="slide"><img src="4.jpeg"></div>
-            <div class="slide"><img src="5.jpg"></div>
-            <div class="slide"><img src="6.jpg"></div>
-            <div class="slide"><img src="7.jpg"></div>
-            <div class="slide"><img src="8.jpg"></div>
-            <div class="slide"><img src="9.jpg"></div>
-            <div class="slide"><img src="10.jpg"></div>
-            <div class="slide"><img src="1.jpg"></div>
-            <div class="slide"><img src="2.jpg"></div>
-            <div class="slide"><img src="3.jpg"></div>
-            <div class="slide"><img src="4.jpg"></div>
-            <div class="slide"><img src="5.jpg"></div>
+            <div class="slide"><img src="1.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="2.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="3.jpeg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="4.jpeg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="5.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="6.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="7.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="8.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="9.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="10.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="1.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="2.jpg" onclick="openFull(this.src)"></div>
+            <div class="slide"><img src="3.jpg" onclick="openFull(this.src)"></div>
         </div>
     </div>
 </div>
 
+<div id="fullView" class="full-view" onclick="closeFull()">
+    <span class="close-btn">&times;</span>
+    <img id="fullImg" src="">
+</div>
+
+<style>
+    .gallery-container { background-color: #1b1b1b; padding-bottom: 60px; }
+    
+    .track { 
+        display: flex; gap: 25px; width: max-content; 
+        animation: scroll 40s linear infinite; 
+    }
+
+    .slide { width: 280px; height: 420px; flex-shrink: 0; cursor: zoom-in; }
+
+    .slide img { 
+        width: 100%; height: 100%; object-fit: cover; 
+        object-position: center top; /* Keeps faces visible */
+        border-radius: 12px; border: 1px solid #333;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* FULLSCREEN OVERLAY STYLES */
+    .full-view {
+        display: none; position: fixed; z-index: 10000;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.95); align-items: center; justify-content: center;
+    }
+
+    .full-view img {
+        max-width: 90%; max-height: 85%;
+        border-radius: 10px; box-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
+    }
+
+    .close-btn {
+        position: absolute; top: 30px; right: 30px;
+        color: white; font-size: 50px; font-weight: bold; cursor: pointer;
+    }
+
+    @keyframes scroll { 
+        0% { transform: translateX(0); } 
+        100% { transform: translateX(calc(-305px * 10)); } 
+    }
+</style>
+
 <script>
     const track = document.getElementById('photoTrack');
 
-    // Pause when finger touches the screen
-    track.addEventListener('touchstart', () => {
-        track.style.animationPlayState = 'paused';
-    });
+    // Functions for Fullscreen
+    function openFull(imgSrc) {
+        document.getElementById('fullImg').src = imgSrc;
+        document.getElementById('fullView').style.display = 'flex';
+        track.style.animationPlayState = 'paused'; // Pause slider while looking at photo
+    }
 
-    // Start again when finger is lifted
+    function closeFull() {
+        document.getElementById('fullView').style.display = 'none';
+        track.style.animationPlayState = 'running'; // Resume slider
+    }
+
+    // Touch Pause Logic
+    track.addEventListener('touchstart', () => track.style.animationPlayState = 'paused');
     track.addEventListener('touchend', () => {
-        track.style.animationPlayState = 'running';
-    });
-
-    // Also for Mouse (PC users)
-    track.addEventListener('mouseenter', () => {
-        track.style.animationPlayState = 'paused';
-    });
-    track.addEventListener('mouseleave', () => {
-        track.style.animationPlayState = 'running';
+        if(document.getElementById('fullView').style.display !== 'flex') {
+            track.style.animationPlayState = 'running';
+        }
     });
 </script>
 
