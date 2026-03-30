@@ -596,7 +596,106 @@
 <meta charset="UTF-8">
 
 	
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<div class="lux-social">
+  <a href="https://www.facebook.com/alpa.singh.972194" target="_blank" class="lux-btn fb">
+    <i class="fab fa-facebook-f"></i>
+    <span>Facebook</span>
+  </a>
+  
+  <a href="https://www.instagram.com/redwinebeautysalon" target="_blank" class="lux-btn insta">
+    <i class="fab fa-instagram"></i>
+    <span>Instagram</span>
+  </a>
+</div>
+
+<style>
+/* Container */
+.lux-social {
+  position: fixed;
+  right: 20px;
+  bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 999;
+}
+
+/* Button Base */
+.lux-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  
+  /* Premium Glass Effect */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  overflow: hidden;
+  position: relative;
+  
+  transition: all 0.4s ease;
+}
+
+/* Icon */
+.lux-btn i {
+  font-size: 18px;
+}
+
+/* Hidden text initially */
+.lux-btn span {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: 0.3s;
+}
+
+/* Hover Effect */
+.lux-btn:hover {
+  padding-right: 25px;
+  transform: translateY(-5px) scale(1.05);
+}
+
+/* Show text on hover */
+.lux-btn:hover span {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Shine effect */
+.lux-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transform: skewX(-25deg);
+}
+
+.lux-btn:hover::before {
+  left: 125%;
+  transition: 0.7s;
+}
+
+/* Brand Glow Colors */
+.fb:hover {
+  box-shadow: 0 0 20px rgba(24,119,242,0.6);
+}
+
+.insta:hover {
+  box-shadow: 0 0 20px rgba(255,0,150,0.6);
+}
+</style>
 
     <script>
         function sendToWhatsApp() {
